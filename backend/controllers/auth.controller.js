@@ -89,8 +89,7 @@ export const login = async (req, res) => {
   }
 };
 
-// controllers/authController.js
-
+//logout
 export const logout = (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
@@ -101,5 +100,21 @@ export const logout = (req, res) => {
 
   res.status(200).json({ message: "Logged out successfully" });
 };
+
+
+//check auth
+export const getMe = (req, res) => {
+  if (!req.user) {
+    return res.status(401).json({ message: "Not authorized" });
+  }
+
+  res.status(200).json({
+    id: req.user._id,
+    username: req.user.username,
+    email: req.user.email,
+  });
+};
+
+
 
 
